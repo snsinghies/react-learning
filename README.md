@@ -72,36 +72,36 @@ http {
 ```
 
 This configuration ensures that your React app can handle client-side routing properly.
-# NGINX Basic Configuration
+#3 NGINX Basic Configuration Explanation
 
-## 1. `user nginx;`
+### 1. `user nginx;`
 This line specifies the user under which the NGINX server will run. In this case, it’s set to `nginx`. Running the server as the `nginx` user (instead of `root`) is a security measure.
 
-## 2. `worker_processes auto;`
+### 2. `worker_processes auto;`
 This directive tells NGINX how many worker processes it should use. The `auto` value makes NGINX automatically determine the number of processes based on the available CPU cores. Each worker process handles incoming requests and connections.
 
-## 3. `error_log /var/log/nginx/error.log notice;`
+### 3. `error_log /var/log/nginx/error.log notice;`
 Defines the location and level of logging for errors:
 - `/var/log/nginx/error.log` is the path to the error log file.
 - `notice` is the logging level, meaning that only messages with a severity level of "notice" or higher will be logged. Other levels include `info`, `warn`, `error`, etc.
 
-## 4. `pid /var/run/nginx.pid;`
+### 4. `pid /var/run/nginx.pid;`
 Specifies where NGINX should store its process ID (PID). This PID file allows the system or administrator to manage or stop the NGINX process.
 
-## 5. `events { worker_connections 1024; }`
+### 5. `events { worker_connections 1024; }`
 The `events` block defines settings related to handling connections:
 - `worker_connections 1024;` means each worker process can handle up to 1024 simultaneous connections. With more worker processes, NGINX can scale accordingly.
 
-## 6. `http { ... }`
+### 6. `http { ... }`
 Contains all configuration related to HTTP traffic, including serving web content.
 
-## 7. `include /etc/nginx/mime.types;`
+### 7. `include /etc/nginx/mime.types;`
 Includes the file `/etc/nginx/mime.types`, which maps file extensions to their MIME types (e.g., `.html` for `text/html`, `.png` for `image/png`). This helps NGINX serve the correct content type based on the file being requested.
 
-## 8. `default_type application/octet-stream;`
+### 8. `default_type application/octet-stream;`
 Sets the default MIME type for files if their type cannot be determined. The value `application/octet-stream` is a generic binary file type, used as a fallback when no other MIME type can be determined.
 
-## 9. `server { ... }`
+### 9. `server { ... }`
 Defines the settings for a specific virtual server:
 
 ### 9.1 `listen 80;`
@@ -116,7 +116,7 @@ Defines how to handle requests for specific URIs (i.e., web addresses). For the 
 - `root /usr/share/nginx/html;`: Tells NGINX to serve files from the directory `/usr/share/nginx/html`, where static files (like `index.html`) are located.
 - `index index.html index.htm;`: Instructs NGINX to look for `index.html` or `index.htm` files when the user requests the root directory (`/`).
 
-## Summary
+### Summary
 - **User and Workers**: The server runs as the `nginx` user and automatically spawns worker processes based on CPU cores.
 - **Logging and PID**: Errors are logged at the `notice` level, and the process ID is stored in `/var/run/nginx.pid`.
 - **Connection Handling**: Each worker process can handle 1024 simultaneous connections.
