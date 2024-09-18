@@ -70,8 +70,48 @@ http {
     }
 }
 ```
+or you can just configure the tls to the nginx.conf file, its takes server.crt and private.key as below mentioned  and it take port 443
+```
+user  nginx;
+worker_processes  auto;
+error_log  /var/log/nginx/error.log notice;
+pid        /var/run/nginx.pid;
+
+events {
+    worker_connections  1024;
+}
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    server {
+        listen       443 ssl;
+        server_name  localhost;
+
+        ssl_certificate      /etc/nginx/ssl/cert.crt;
+        ssl_certificate_key  /etc/nginx/ssl/private.key;
+
+        location / {
+            root   /usr/share/nginx/html;
+            index  index.html index.htm;
+        }
+    }
+
+    # Optional: Redirect HTTP to HTTPS
+    server {
+        listen       80;
+        server_name  localhost;
+
+        location / {
+            return 301 https://$host$request_uri;
+        }
+    }
+}
+```
 
 This configuration ensures that your React app can handle client-side routing properly.
+
 #3 NGINX Basic Configuration Explanation
 
 ### 1. `user nginx;`
