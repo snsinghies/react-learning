@@ -71,7 +71,7 @@ http {
 }
 ```
 or you can just configure the tls to the nginx.conf file, its takes server.crt and private.key as below mentioned  and it take port 443
-```
+```nginx
 user  nginx;
 worker_processes  auto;
 error_log  /var/log/nginx/error.log notice;
